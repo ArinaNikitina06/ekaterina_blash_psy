@@ -1,0 +1,1314 @@
+:root {
+  /* Палитра в стиле ваших референсов: тёплый беж + sage + золото */
+  --bg: #f3efe6;
+  --surface: #fbfaf7;
+  --panel: rgba(35, 33, 41, 0.04);
+  --panel-strong: rgba(35, 33, 41, 0.07);
+  --text: rgba(35, 33, 41, 0.92);
+  --muted: rgba(35, 33, 41, 0.70);
+  --muted2: rgba(35, 33, 41, 0.56);
+  --border: rgba(35, 33, 41, 0.12);
+
+  --accent: #6f7f6a; /* sage */
+  --accent-soft: rgba(111, 127, 106, 0.14);
+  --gold: #d6bb7a;
+  --gold-soft: rgba(214, 187, 122, 0.18);
+
+  --shadow: 0 18px 54px rgba(35, 33, 41, 0.10);
+  --radius: 18px;
+  --radius-sm: 14px;
+  --max: 1120px;
+
+  --head-font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell,
+    Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  --body-font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell,
+    Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1114;
+    --surface: rgba(255, 255, 255, 0.06);
+    --panel: rgba(255, 255, 255, 0.06);
+    --panel-strong: rgba(255, 255, 255, 0.10);
+    --text: rgba(255, 255, 255, 0.92);
+    --muted: rgba(255, 255, 255, 0.74);
+    --muted2: rgba(255, 255, 255, 0.62);
+    --border: rgba(255, 255, 255, 0.12);
+    --shadow: 0 18px 60px rgba(0, 0, 0, 0.38);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--body-font);
+  background:
+    radial-gradient(900px 520px at 14% -10%, var(--accent-soft), transparent 62%),
+    radial-gradient(900px 520px at 88% 6%, var(--gold-soft), transparent 60%),
+    var(--bg);
+  color: var(--text);
+  line-height: 1.62;
+}
+
+/* лёгкие золотые “волны/линии” поверх фона, чтобы страница не выглядела статичной */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -20%;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    linear-gradient(105deg, transparent 0%, rgba(214, 187, 122, 0.18) 18%, transparent 34%),
+    linear-gradient(110deg, transparent 48%, rgba(214, 187, 122, 0.14) 58%, transparent 70%),
+    linear-gradient(112deg, transparent 78%, rgba(214, 187, 122, 0.10) 86%, transparent 96%);
+  transform: rotate(-6deg);
+  opacity: 0.55;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  width: min(var(--max), calc(100% - 40px));
+  margin: 0 auto;
+}
+
+.skip-link {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  transform: translateY(-160%);
+  transition: transform 0.2s ease;
+  z-index: 9999;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.btn:focus-visible,
+.menu-btn:focus-visible,
+textarea:focus-visible,
+a:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent) 62%, transparent);
+  outline-offset: 3px;
+  border-radius: 14px;
+}
+
+/* Header */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(14px);
+  background: color-mix(in srgb, var(--bg) 84%, transparent);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 14px 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 220px;
+}
+
+.brand-mark {
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, rgba(111, 127, 106, 0.20), rgba(214, 187, 122, 0.18));
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.brand-mark svg {
+  width: 20px;
+  height: 20px;
+}
+
+.brand-text {
+  display: grid;
+  line-height: 1.2;
+}
+
+.brand-name {
+  font-weight: 740;
+  letter-spacing: -0.02em;
+}
+
+.brand-sub {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.nav a {
+  padding: 10px 10px;
+  border-radius: 12px;
+}
+
+.nav a:hover {
+  background: var(--panel);
+  text-decoration: none;
+  color: var(--text);
+}
+
+.menu-btn {
+  display: none;
+  appearance: none;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  border-radius: 14px;
+  padding: 10px 10px;
+  cursor: pointer;
+}
+
+.menu-btn span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--text);
+  margin: 3px 0;
+  border-radius: 99px;
+  opacity: 0.85;
+}
+
+.mobile-nav {
+  border-top: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  padding: 10px 0 14px;
+}
+
+.mobile-nav-inner {
+  display: grid;
+  gap: 10px;
+}
+
+.mobile-nav a {
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+/* Sections */
+.hero {
+  padding: 46px 0 10px;
+}
+
+.hero-copy {
+  position: relative;
+}
+
+/* Золотая “лента/волна” как в референсах */
+.hero-copy::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 14px;
+  width: min(560px, 100%);
+  height: 160px;
+  pointer-events: none;
+  opacity: 0.7;
+  background:
+    radial-gradient(120px 80px at 0% 42%, var(--gold-soft), transparent 65%),
+    radial-gradient(180px 120px at 30% 18%, rgba(214, 187, 122, 0.14), transparent 66%),
+    radial-gradient(160px 120px at 68% 38%, rgba(214, 187, 122, 0.10), transparent 70%);
+  filter: blur(0.1px);
+}
+
+.hero-copy::after {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 46px;
+  width: min(520px, 100%);
+  height: 80px;
+  background: linear-gradient(90deg, transparent, rgba(214, 187, 122, 0.55), transparent);
+  transform: rotate(-7deg);
+  border-radius: 999px;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1.12fr 0.88fr;
+  gap: 26px;
+  align-items: start;
+  padding: 12px 0 40px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 14px 0 12px;
+  font-family: var(--head-font);
+  font-size: clamp(30px, 4vw, 46px);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+}
+
+.lead {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 16px;
+  max-width: 64ch;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 8px 0 16px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn:hover {
+  text-decoration: none;
+  background: var(--panel-strong);
+}
+
+.btn.primary {
+  border: none;
+  background: var(--accent);
+  color: rgba(255, 255, 255, 0.94);
+}
+
+.btn.primary:hover {
+  filter: saturate(1.05) brightness(0.98);
+}
+
+/* Call button: on hover make text dark so it remains readable */
+.call-btn:hover,
+.call-btn:focus {
+  color: var(--text);
+}
+
+/* hidden phone number shown when toggled */
+.phone-number {
+  display: inline-block;
+  margin-left: 12px;
+  font-weight: 700;
+  color: var(--text);
+  background: transparent;
+}
+.phone-number[hidden] {
+  display: none !important;
+}
+.phone-number.is-visible {
+  animation: fadeIn 180ms ease both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.btn.ghost {
+  background: transparent;
+}
+
+.meta {
+  list-style: none;
+  padding: 0;
+  margin: 18px 0 0;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  color: var(--muted2);
+  font-size: 13px;
+}
+
+.meta strong {
+  color: var(--text);
+}
+
+.hero-card {
+
+  position: relative;
+}
+
+.hero-card .card {
+  border-radius: 44px;
+  border: 1px solid var(--border);
+  background:
+    radial-gradient(420px 240px at 22% 10%, var(--gold-soft), transparent 60%),
+    radial-gradient(420px 240px at 88% 18%, var(--accent-soft), transparent 60%),
+    linear-gradient(180deg, color-mix(in srgb, var(--surface) 92%, transparent), transparent);
+  box-shadow: var(--shadow);
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-card .card::before,
+.hero-card .card::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  width: 180px;
+  background-repeat: no-repeat;
+  background-size: 170px 100%;
+  opacity: 0.70;
+  pointer-events: none;
+}
+
+.hero-card .card::before {
+  left: -70px;
+  background-image: url("assets/floral/floral-side-left-sage.svg");
+}
+
+.hero-card .card::after {
+  right: -70px;
+  background-image: url("assets/floral/floral-side-right-sage.svg");
+}
+
+/* (restored default contact styles further below) */
+
+.card-head {
+  position: relative;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
+/* card-head-text uses default flow */
+
+.avatar {
+  width: 62px;
+  height: 62px;
+  border-radius: 999px;
+  border: none; /* “круг/рамку” убираем — остаётся только фото */
+  background: transparent;
+  box-shadow: none;
+  position: relative;
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.avatar.has-photo img {
+  opacity: 1;
+}
+
+/* initials removed by design */
+
+.card-title {
+  margin: 0;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  font-family: var(--head-font);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: calc(100% - 120px);
+}
+
+.card-sub {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.card-text {
+  margin: 10px 0 14px;
+  color: var(--muted);
+}
+
+.card-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px 0 14px;
+}
+
+/* layout wrapper that places badges and a photo side-by-side */
+.card-badges-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 10px 0 14px;
+}
+
+.card-badges-wrap .card-badges {
+  margin: 0; /* handled by wrapper */
+}
+
+.card-photo {
+  flex: 0 0 170px;
+  width: 170px;
+  height: 170px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  box-shadow: var(--shadow);
+}
+
+.card-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 760px) {
+  .card-badges-wrap {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .card-photo {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+  .card-photo img {
+    height: auto;
+  }
+}
+
+.badge {
+  font-size: 12px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  color: var(--muted);
+}
+
+.badge:hover {
+  text-decoration: none;
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  border-color: color-mix(in srgb, var(--border) 78%, transparent);
+  color: var(--text);
+}
+
+.card-contacts {
+  display: grid;
+  gap: 10px;
+  margin: 12px 0 14px;
+}
+
+.contact-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  color: var(--text);
+  text-align: center;
+}
+
+.contact-pill:hover {
+  text-decoration: none;
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+}
+
+/* When the contact pill uses the primary modifier, keep a light background on hover
+   but ensure the text becomes the main dark color for readability. */
+.contact-pill.btn.primary:hover,
+.contact-pill.btn.primary:focus {
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+  color: var(--text);
+  filter: none;
+}
+
+.card-note {
+  margin: 0;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+
+.trust {
+  margin-top: 18px;
+  display: grid;
+  gap: 10px;
+  max-width: 520px;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+}
+
+.trust-title {
+  font-weight: 760;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.trust-text {
+  color: var(--muted);
+  font-size: 14px;
+  text-align: right;
+}
+
+.section {
+  padding: 54px 0;
+}
+
+.section.alt {
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.section-head {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.section-head h2 {
+  margin: 0;
+  font-family: var(--head-font);
+  font-size: 28px;
+  letter-spacing: -0.02em;
+}
+
+.section-head p {
+  margin: 0;
+  color: var(--muted);
+  max-width: 72ch;
+}
+
+/* Notes (rebuilt) */
+.notes-card {
+  /* uses the same “card” styling as education via .edu-card */
+}
+
+.notes-card-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: start;
+}
+
+.notes-pane {
+  border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+  /* немного темнее, чем общий фон страницы */
+  background: color-mix(in srgb, var(--text) 6%, var(--surface));
+  border-radius: calc(var(--radius) - 8px);
+  padding: var(--notes-pane-pad);
+}
+
+.notes-card {
+  /* высота превью (текст слева + “Читать полностью”) и высота картинки справа должны совпадать */
+  --notes-preview-h: 560px;
+  /* делаем картинку чуть ниже, чтобы слегка “срезать” низ */
+  --notes-media-h: 480px;
+  --notes-pane-pad: 16px;
+  /* подрезаем “бумажную” рамку внутри картинки */
+  --notes-img-zoom: 1.08;
+  --notes-img-origin-y: 10%;
+}
+
+.notes-pane-text {
+  /* фон как у body */
+  background: var(--bg);
+  /* чуть “поднимаем” контент вверх */
+  padding-top: calc(var(--notes-pane-pad) - 10px);
+  /* фиксируем высоту, чтобы низ совпадал с картинкой */
+  height: var(--notes-media-h);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.notes-pane-media {
+  padding: 0;
+  overflow: hidden;
+  background: transparent;
+  height: var(--notes-media-h);
+  position: relative;
+  /* делаем блок под пропорции картинки (2:3), чтобы не было “белых полос” по бокам */
+  width: clamp(240px, calc(var(--notes-media-h) * 2 / 3), 360px);
+}
+
+.notes-card h3 {
+  margin: 0 0 12px;
+  font-family: var(--head-font);
+  letter-spacing: -0.01em;
+}
+
+.notes-body {
+  color: var(--muted);
+}
+
+.notes-body p {
+  margin: 0 0 10px;
+}
+
+.notes-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* раскрытие заметки */
+.notes-details {
+  display: block;
+  flex: 1;
+  height: 100%;
+}
+
+.notes-details:not([open]) {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.notes-details[open] {
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.notes-summary {
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+}
+
+.notes-summary::-webkit-details-marker {
+  display: none;
+}
+
+.notes-cta {
+  margin-top: auto;
+  padding-top: 15px;
+  min-height: 22px;
+  color: var(--accent);
+  font-weight: 780;
+  letter-spacing: -0.01em;
+}
+
+.notes-details:not([open]) .notes-cta::before {
+  content: "Читать полностью";
+}
+
+.notes-details[open] .notes-cta::before {
+  content: "Свернуть";
+  color: var(--muted2);
+}
+
+/* Когда раскрыто — делаем “Свернуть” ближе к заголовку и освобождаем место под полный текст */
+.notes-details[open] .notes-summary {
+  height: auto;
+  overflow: visible;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+}
+
+.notes-details[open] .notes-excerpt {
+  display: none;
+}
+
+.notes-details[open] .notes-cta {
+  margin-top: 8px;
+  padding-top: 0;
+  min-height: 0;
+}
+
+.notes-details[open] .notes-cta::after {
+  content: " ↓";
+  color: var(--muted2);
+  font-weight: 900;
+}
+
+.notes-dialog {
+  margin: 12px 0;
+  padding: 12px 14px;
+  border-radius: 18px;
+  border: 1px dashed color-mix(in srgb, var(--border) 80%, transparent);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  color: var(--text);
+}
+
+.notes-dialog p {
+  margin: 0 0 8px;
+}
+
+.notes-dialog p:last-child {
+  margin-bottom: 0;
+}
+
+.notes-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  /* заполняем блок без боковых пустых полей */
+  object-fit: cover;
+  object-position: 50% 0%;
+  background: transparent;
+  transform: scale(var(--notes-img-zoom));
+  transform-origin: 50% var(--notes-img-origin-y);
+}
+
+/* смягчаем края иллюстрации (легкая “бумажная” виньетка) */
+.notes-pane-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.06),
+    inset 0 0 26px rgba(0, 0, 0, 0.14);
+  opacity: 0.55;
+}
+
+.notes-title {
+  margin: 0 0 12px;
+  font-family: var(--head-font);
+  letter-spacing: -0.01em;
+}
+
+/* мягкий fade снизу превью */
+.notes-excerpt {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+}
+
+.notes-details:not([open]) .notes-excerpt::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 84px;
+  background: linear-gradient(180deg, transparent, var(--bg));
+  pointer-events: none;
+}
+
+.notes-footer {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.notes-footer button[disabled] {
+  opacity: 0.68;
+  cursor: not-allowed;
+}
+
+.notes-more-hint {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted2);
+}
+
+
+.grid {
+  display: grid;
+  gap: 16px;
+}
+
+.grid.one {
+  grid-template-columns: 1fr;
+}
+
+.grid.two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid.three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.panel {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+
+.panel h3 {
+  margin: 0 0 8px;
+  font-family: var(--head-font);
+  letter-spacing: -0.01em;
+}
+
+/* Booking panel (form card) */
+.booking-panel {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--surface) 94%, transparent), transparent);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  position: relative;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.booking-floral {
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  width: 160px;
+  pointer-events: none;
+  opacity: 0.9;
+  z-index: 0;
+}
+
+.booking-floral.left {
+  left: -46px;
+}
+
+.booking-floral.right {
+  right: -46px;
+}
+
+.booking-floral img {
+  width: 160px;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.booking-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(520px 320px at 18% 0%, var(--gold-soft), transparent 62%),
+    radial-gradient(520px 320px at 92% 10%, var(--accent-soft), transparent 62%);
+  opacity: 0.75;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.booking-head {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+  z-index: 1;
+}
+
+.booking-decor {
+  width: 240px;
+  height: 160px;
+  display: grid;
+  place-items: end;
+  opacity: 0.95;
+}
+
+.booking-decor img {
+  width: 240px;
+  height: auto;
+  display: block;
+}
+
+/* Education */
+.edu-card {
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--panel), transparent);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+
+.edu-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.edu-year {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  font-weight: 820;
+  letter-spacing: -0.01em;
+}
+
+.edu-hours {
+  color: var(--muted2);
+  font-size: 13px;
+}
+
+.edu-program {
+  margin: 0 0 10px;
+  font-family: var(--head-font);
+  letter-spacing: -0.01em;
+}
+
+.edu-org,
+.edu-scope {
+  margin: 0 0 10px;
+  color: var(--muted);
+}
+
+.edu-scope {
+  margin-bottom: 0;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.list {
+  margin: 10px 0 12px;
+  padding-left: 18px;
+  color: var(--muted);
+}
+
+.checks {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 12px;
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+}
+
+.checks li {
+  position: relative;
+  padding-left: 22px;
+}
+
+.checks li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: color-mix(in srgb, var(--accent) 70%, var(--text));
+  font-weight: 800;
+}
+
+.price-card {
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--panel), transparent);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+
+.price-card h3 {
+  margin: 0 0 10px;
+}
+
+.price {
+  margin: 0 0 10px;
+  font-size: 28px;
+  letter-spacing: -0.02em;
+  font-weight: 780;
+}
+
+.price-value {
+  background: linear-gradient(135deg, var(--gold), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.note {
+  margin-top: 16px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  color: var(--muted);
+}
+
+.copybox {
+  margin-top: 12px;
+  display: grid;
+  gap: 12px;
+}
+
+textarea {
+  width: 100%;
+  resize: vertical;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  color: var(--text);
+  padding: 12px;
+  line-height: 1.4;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+.copy-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.copy-status {
+  margin: 0;
+  color: var(--muted2);
+  font-size: 13px;
+}
+
+.links {
+  margin: 10px 0 0;
+  padding-left: 18px;
+  color: var(--muted);
+}
+
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 16px 0;
+}
+
+.contact-placeholder p {
+  margin: 8px 0;
+}
+
+.footnote {
+  margin: 12px 0 0;
+  font-size: 12px;
+  color: var(--muted2);
+}
+
+/* Footer */
+.site-footer {
+  padding: 26px 0;
+  color: rgba(255, 255, 255, 0.78);
+  background: url("assets/floral/footer-print.svg") center / cover no-repeat;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-top: none;
+  padding-top: 18px;
+}
+
+.to-top {
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.10);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.to-top:hover {
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.site-footer a {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.site-footer a:hover {
+  text-decoration: none;
+}
+
+.form {
+  margin-top: 12px;
+  display: grid;
+  gap: 12px;
+}
+
+.booking-form {
+  position: relative;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  border-radius: calc(var(--radius) + 2px);
+  padding: 16px;
+  z-index: 1;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.field > span {
+  font-size: 13px;
+  color: var(--muted2);
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+input,
+select {
+  width: 100%;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  color: var(--text);
+  padding: 11px 12px;
+  line-height: 1.3;
+}
+
+select {
+  appearance: none;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.form-note {
+  margin: 0;
+  color: var(--muted2);
+  font-size: 13px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+  }
+  .grid.three {
+    grid-template-columns: 1fr;
+  }
+  .notes-card-grid {
+    grid-template-columns: 1fr;
+  }
+  .notes-pane-media {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2 / 3;
+  }
+  .notes-pane-text {
+    height: auto;
+    overflow: visible;
+  }
+}
+
+@media (max-width: 760px) {
+  .nav {
+    display: none;
+  }
+  .menu-btn {
+    display: inline-flex;
+  }
+  .grid.two {
+    grid-template-columns: 1fr;
+  }
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+  .booking-decor {
+    display: none;
+  }
+  .booking-floral {
+    display: none;
+  }
+}
+
+/* (comic styles removed — the section is now “Заметки психолога”) */
+

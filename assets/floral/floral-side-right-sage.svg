@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="520" viewBox="0 0 220 520">
+  <defs>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="0.5"/>
+    </filter>
+  </defs>
+  <rect width="220" height="520" fill="none"/>
+  <g filter="url(#soft)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M98 470c34-70 46-130 40-210-6-76-26-136-64-208"
+          stroke="#6f7f6a" stroke-opacity="0.36" stroke-width="4"/>
+    <path d="M124 480c26-54 34-106 26-172-10-86-40-156-78-228"
+          stroke="#6f7f6a" stroke-opacity="0.24" stroke-width="3"/>
+
+    <path d="M88 350c30 0 54 18 58 42-30 4-60-16-74-36 4-4 8-6 16-6Z"
+          fill="#6f7f6a" fill-opacity="0.10" stroke="#6f7f6a" stroke-opacity="0.18" stroke-width="2"/>
+    <path d="M68 290c26 6 42 30 38 54-30-4-52-30-52-50 4-4 8-4 14-4Z"
+          fill="#6f7f6a" fill-opacity="0.08" stroke="#6f7f6a" stroke-opacity="0.16" stroke-width="2"/>
+    <path d="M110 240c24 10 34 36 24 60-26-10-42-40-32-60 4 0 4 0 8 0Z"
+          fill="#6f7f6a" fill-opacity="0.06" stroke="#6f7f6a" stroke-opacity="0.14" stroke-width="2"/>
+    <path d="M66 208c28 4 46 28 42 54-30-4-54-32-56-50 4-4 8-4 14-4Z"
+          fill="#6f7f6a" fill-opacity="0.06" stroke="#6f7f6a" stroke-opacity="0.14" stroke-width="2"/>
+
+    <g stroke="#6f7f6a" stroke-opacity="0.16" stroke-width="2">
+      <circle cx="60" cy="160" r="6" fill="#6f7f6a" fill-opacity="0.05"/>
+      <circle cx="102" cy="410" r="6" fill="#6f7f6a" fill-opacity="0.05"/>
+    </g>
+  </g>
+</svg>
+
