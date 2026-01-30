@@ -1,5 +1,5 @@
 :root {
-  /* Палитра в стиле ваших референсов: тёплый беж + sage + золото */
+ 
   --bg: #f3efe6;
   --surface: #fbfaf7;
   --panel: rgba(35, 33, 41, 0.04);
@@ -60,7 +60,7 @@ body {
   line-height: 1.62;
 }
 
-/* лёгкие золотые “волны/линии” поверх фона, чтобы страница не выглядела статичной */
+
 body::after {
   content: "";
   position: fixed;
@@ -238,7 +238,7 @@ a:focus-visible {
   position: relative;
 }
 
-/* Золотая “лента/волна” как в референсах */
+
 .hero-copy::before {
   content: "";
   position: absolute;
@@ -344,13 +344,12 @@ h1 {
   filter: saturate(1.05) brightness(0.98);
 }
 
-/* Call button: on hover make text dark so it remains readable */
+
 .call-btn:hover,
 .call-btn:focus {
   color: var(--text);
 }
 
-/* hidden phone number shown when toggled */
 .phone-number {
   display: inline-block;
   margin-left: 12px;
@@ -430,7 +429,7 @@ h1 {
   background-image: url("assets/floral/floral-side-right-sage.svg");
 }
 
-/* (restored default contact styles further below) */
+
 
 .card-head {
   position: relative;
@@ -441,7 +440,7 @@ h1 {
   margin-bottom: 10px;
 }
 
-/* card-head-text uses default flow */
+
 
 .avatar {
   width: 62px;
@@ -468,7 +467,7 @@ h1 {
   opacity: 1;
 }
 
-/* initials removed by design */
+
 
 .card-title {
   margin: 0;
@@ -501,7 +500,7 @@ h1 {
   margin: 10px 0 14px;
 }
 
-/* layout wrapper that places badges and a photo side-by-side */
+
 .card-badges-wrap {
   display: flex;
   align-items: center;
@@ -510,7 +509,7 @@ h1 {
 }
 
 .card-badges-wrap .card-badges {
-  margin: 0; /* handled by wrapper */
+  margin: 0; 
 }
 
 .card-photo {
@@ -585,8 +584,7 @@ h1 {
   background: color-mix(in srgb, var(--surface) 86%, transparent);
 }
 
-/* When the contact pill uses the primary modifier, keep a light background on hover
-   but ensure the text becomes the main dark color for readability. */
+
 .contact-pill.btn.primary:hover,
 .contact-pill.btn.primary:focus {
   background: color-mix(in srgb, var(--surface) 86%, transparent);
@@ -662,7 +660,7 @@ h1 {
 
 /* Notes (rebuilt) */
 .notes-card {
-  /* uses the same “card” styling as education via .edu-card */
+
 }
 
 .notes-card-grid {
@@ -674,29 +672,28 @@ h1 {
 
 .notes-pane {
   border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
-  /* немного темнее, чем общий фон страницы */
   background: color-mix(in srgb, var(--text) 6%, var(--surface));
   border-radius: calc(var(--radius) - 8px);
   padding: var(--notes-pane-pad);
 }
 
 .notes-card {
-  /* высота превью (текст слева + “Читать полностью”) и высота картинки справа должны совпадать */
+ 
   --notes-preview-h: 560px;
   /* делаем картинку чуть ниже, чтобы слегка “срезать” низ */
   --notes-media-h: 480px;
   --notes-pane-pad: 16px;
-  /* подрезаем “бумажную” рамку внутри картинки */
+
   --notes-img-zoom: 1.08;
   --notes-img-origin-y: 10%;
 }
 
 .notes-pane-text {
-  /* фон как у body */
+
   background: var(--bg);
-  /* чуть “поднимаем” контент вверх */
+
   padding-top: calc(var(--notes-pane-pad) - 10px);
-  /* фиксируем высоту, чтобы низ совпадал с картинкой */
+ 
   height: var(--notes-media-h);
   display: flex;
   flex-direction: column;
@@ -709,7 +706,7 @@ h1 {
   background: transparent;
   height: var(--notes-media-h);
   position: relative;
-  /* делаем блок под пропорции картинки (2:3), чтобы не было “белых полос” по бокам */
+ 
   width: clamp(240px, calc(var(--notes-media-h) * 2 / 3), 360px);
 }
 
@@ -731,7 +728,7 @@ h1 {
   margin-bottom: 0;
 }
 
-/* раскрытие заметки */
+
 .notes-details {
   display: block;
   flex: 1;
@@ -782,7 +779,7 @@ h1 {
   color: var(--muted2);
 }
 
-/* Когда раскрыто — делаем “Свернуть” ближе к заголовку и освобождаем место под полный текст */
+
 .notes-details[open] .notes-summary {
   height: auto;
   overflow: visible;
@@ -828,7 +825,7 @@ h1 {
   width: 100%;
   height: 100%;
   display: block;
-  /* заполняем блок без боковых пустых полей */
+
   object-fit: cover;
   object-position: 50% 0%;
   background: transparent;
@@ -836,7 +833,7 @@ h1 {
   transform-origin: 50% var(--notes-img-origin-y);
 }
 
-/* смягчаем края иллюстрации (легкая “бумажная” виньетка) */
+
 .notes-pane-media::after {
   content: "";
   position: absolute;
@@ -855,7 +852,7 @@ h1 {
   letter-spacing: -0.01em;
 }
 
-/* мягкий fade снизу превью */
+
 .notes-excerpt {
   position: relative;
   flex: 1;
@@ -924,7 +921,7 @@ h1 {
   letter-spacing: -0.01em;
 }
 
-/* Booking panel (form card) */
+
 .booking-panel {
   background: linear-gradient(180deg, color-mix(in srgb, var(--surface) 94%, transparent), transparent);
   box-shadow: var(--shadow);
