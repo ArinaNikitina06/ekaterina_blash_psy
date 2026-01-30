@@ -229,6 +229,20 @@ function setupNotesNavigation() {
   render(false);
 }
 
+function setupToTop() {
+  const link = document.querySelector('a.to-top[href="#top"]');
+  if (!(link instanceof HTMLAnchorElement)) return;
+
+  link.addEventListener("click", (e) => {
+    // Фоллбек по href остаётся для случая без JS,
+    // но с JS делаем надёжный скролл в самое начало страницы.
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    // также выставим хеш, чтобы работало как обычная ссылка (например, для истории/шеринга)
+    if (location.hash !== "#top") history.replaceState(null, "", "#top");
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   setYear();
   setupMobileMenu();
@@ -236,5 +250,6 @@ document.addEventListener("DOMContentLoaded", () => {
   setupBookingFormFallback();
   setupImageFallbacks();
   setupNotesNavigation();
+  setupToTop();
 });
 
