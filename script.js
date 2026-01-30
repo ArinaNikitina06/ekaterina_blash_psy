@@ -243,6 +243,99 @@ function setupToTop() {
   });
 }
 
+function setupSnow() {
+  // Respect accessibility setting
+  if (window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches) return;
+
+  const canvas = document.createElement("canvas");
+  canvas.id = "snow-canvas";
+  canvas.setAttribute("aria-hidden", "true");
+  document.body.appendChild(canvas);
+
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+
+  let w = 0;
+  let h = 0;
+  let dpr = 1;
+
+  const resize = () => {
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    w = Math.max(1, window.innerWidth);
+    h = Math.max(1, window.innerHeight);
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
+    canvas.style.width = `${w}px`;
+    canvas.style.height = `${h}px`;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+
+  resize();
+  window.addEventListener("resize", resize, { passive: true });
+
+  const isDark = () => window.matchMedia?.("(prefers-color-scheme: dark)")?.matches;
+
+  const maxFlakes = Math.round(Math.min(120, Math.max(40, w / 12)));
+  const flakes = Array.from({ length: maxFlakes }, () => ({
+    x: Math.random() * w,
+    y: Math.random() * h,
+    r: 0.8 + Math.random() * 2.6,
+    vx: -0.25 + Math.random() * 0.5,
+    vy: 0.6 + Math.random() * 1.6,
+    a: 0.35 + Math.random() * 0.55,
+  }));
+
+  let raf = 0;
+  let last = performance.now();
+
+  const tick = (t) => {
+    const dt = Math.min(34, t - last);
+    last = t;
+
+    ctx.clearRect(0, 0, w, h);
+
+    // A slightly warm “snow” in light mode, cooler in dark mode
+    ctx.fillStyle = isDark() ? "rgba(245, 247, 255, 0.75)" : "rgba(255, 255, 255, 0.65)";
+
+    const k = dt / 16.67;
+    for (const f of flakes) {
+      f.x += f.vx * k;
+      f.y += f.vy * k;
+
+      // gentle sway
+      f.x += Math.sin((f.y + t / 25) / 22) * 0.12;
+
+      if (f.y - f.r > h + 10) {
+        f.y = -10 - Math.random() * 60;
+        f.x = Math.random() * w;
+      }
+      if (f.x < -20) f.x = w + 20;
+      if (f.x > w + 20) f.x = -20;
+
+      ctx.globalAlpha = f.a;
+      ctx.beginPath();
+      ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    ctx.globalAlpha = 1;
+    raf = requestAnimationFrame(tick);
+  };
+
+  // Pause when tab is hidden to save battery
+  const onVis = () => {
+    if (document.hidden) {
+      cancelAnimationFrame(raf);
+    } else {
+      last = performance.now();
+      raf = requestAnimationFrame(tick);
+    }
+  };
+  document.addEventListener("visibilitychange", onVis);
+
+  raf = requestAnimationFrame(tick);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   setYear();
   setupMobileMenu();
@@ -251,5 +344,6 @@ document.addEventListener("DOMContentLoaded", () => {
   setupImageFallbacks();
   setupNotesNavigation();
   setupToTop();
+  setupSnow();
 });
 
